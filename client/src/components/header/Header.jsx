@@ -1,8 +1,6 @@
 import React from 'react'
 import styles from "./header.module.scss"
-import Menu from "../menu/Menu";
 import MenuIcon from '@mui/icons-material/Menu';
-import PositionedMenu from '../menu/Menu';
 import Button from '@mui/material/Button';
 
 const Header = () => {
