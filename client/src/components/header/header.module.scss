@@ -1,0 +1,21 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+
+.header {
+   height: 130px;
+   background-color: $color-battleshipGrey;
+   @include flexSpaceBetween();
+   padding-left: 50px;
+   padding-right: 50px;
+
+   .menu{
+    font-size: 45px;
+    color: $color-black;
+    cursor: pointer;
+   }
+
+   .title{
+    font-size: 40px;
+    color: $color-white;
+   }
+}

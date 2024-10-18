@@ -4,9 +4,22 @@
     align-items: center;
 }
 
+@mixin flexSpaceBetween(){
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 @mixin flexdirection($direction) {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+  }
+
+  @mixin flexdirectionspace($direction) {
+    display: flex;
+    justify-content: space-around;
     align-items: center;
     flex-direction: $direction;
   }
