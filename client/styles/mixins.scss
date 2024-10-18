@@ -1,0 +1,38 @@
+@mixin flexStandard(){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flexdirection($direction) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+  }
+
+  @mixin flexwrap($direction) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+    flex-wrap: wrap;
+  }
+
+  @mixin flexdirectionColumn() {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  @mixin flexdirectionRow() {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;;
+  }
+
+  @mixin flexalign(){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
