@@ -17,6 +17,13 @@
     flex-direction: $direction;
   }
 
+  @mixin flexdirectionspace($direction) {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: $direction;
+  }
+
   @mixin flexwrap($direction) {
     display: flex;
     justify-content: center;
