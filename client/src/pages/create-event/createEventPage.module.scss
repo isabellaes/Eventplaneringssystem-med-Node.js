@@ -3,8 +3,8 @@ h1 {
   text-align: center;
 }
 div {
-  gap: 1em;
-  margin-bottom: 1em;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
 
   h2 {
     padding-bottom: 1em;
@@ -13,8 +13,17 @@ div {
 
 form {
   display: flex;
-  justify-content: center;
+
   flex-direction: column;
   margin: 2em;
   padding: 2em;
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+button {
+  align-items: center;
 }

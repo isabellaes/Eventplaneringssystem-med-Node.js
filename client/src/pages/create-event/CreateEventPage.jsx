@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
-import "./createEventPage.module.scss";
+import style from "./createEventPage.module.scss";
 import { useState } from "react";
 
 const CreateEventPage = () => {
@@ -42,13 +42,10 @@ const CreateEventPage = () => {
           console.log(formData);
         }}
       >
-        <div>
+        <div className={style.flexRow}>
           <div>
-            <h2>Organisatör informaton</h2>
+            <h2>Organisatör</h2>
             <FormControl>
-              <FormLabel id="demo-row-radio-buttons-group-label">
-                Namn
-              </FormLabel>
               <TextField
                 id="outlined-basic"
                 label="Namn"
@@ -63,9 +60,7 @@ const CreateEventPage = () => {
                   })
                 }
               />
-              <FormLabel id="demo-row-radio-buttons-group-label">
-                Epost
-              </FormLabel>
+
               <TextField
                 id="outlined-basic"
                 label="Epost"
@@ -81,9 +76,7 @@ const CreateEventPage = () => {
                   })
                 }
               />
-              <FormLabel id="demo-row-radio-buttons-group-label">
-                Telefonnummer
-              </FormLabel>
+
               <TextField
                 id="outlined-basic"
                 label="Telefonnummer"
@@ -103,13 +96,9 @@ const CreateEventPage = () => {
           <div>
             <h2>Event informaton</h2>
             <FormControl>
-              <FormLabel id="demo-row-radio-buttons-group-label">
-                Ladda upp Bild
-              </FormLabel>
+              <FormLabel>Ladda upp Bild</FormLabel>
               <TextField id="basic" type="file" />
-              <FormLabel id="demo-row-radio-buttons-group-label">
-                Titel
-              </FormLabel>
+
               <TextField
                 id="outlined-basic"
                 label="Titel"
@@ -124,9 +113,7 @@ const CreateEventPage = () => {
                   })
                 }
               />
-              <FormLabel id="demo-row-radio-buttons-group-label">
-                Plats
-              </FormLabel>
+
               <TextField
                 id="outlined-basic"
                 label="Plats"
@@ -141,7 +128,7 @@ const CreateEventPage = () => {
                   })
                 }
               />
-              <FormLabel id="demo-row-radio-buttons-group-label">Tid</FormLabel>
+
               <TextField
                 id="outlined-basic"
                 label="Tid"
@@ -156,9 +143,7 @@ const CreateEventPage = () => {
                   })
                 }
               />
-              <FormLabel id="demo-row-radio-buttons-group-label">
-                Datum
-              </FormLabel>
+              <FormLabel>Datum</FormLabel>
               <TextField
                 id="outlined-basic"
                 variant="outlined"
@@ -173,13 +158,10 @@ const CreateEventPage = () => {
                   })
                 }
               />
-              <FormLabel id="demo-row-radio-buttons-group-label">
-                Beskrivning
-              </FormLabel>
+
               <TextField
                 id="outlined-textarea"
                 label="Beskrivning"
-                placeholder="Placeholder"
                 multiline
                 onChange={(e) =>
                   setFormData({
@@ -192,13 +174,9 @@ const CreateEventPage = () => {
                 }
               />
 
-              <FormLabel id="demo-row-radio-buttons-group-label">
-                Öppet/Privat
-              </FormLabel>
+              <FormLabel>Öppet/Privat</FormLabel>
               <RadioGroup
                 column
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
                 onChange={(e) => {
                   if (e.currentTarget.value === "private") {
                     setFormData({
@@ -223,13 +201,9 @@ const CreateEventPage = () => {
                 />
               </RadioGroup>
 
-              <FormLabel id="demo-row-radio-buttons-group-label">
-                Anmälan
-              </FormLabel>
+              <FormLabel>Anmälan</FormLabel>
               <RadioGroup
                 column
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
                 onChange={(e) => {
                   if (e.currentTarget.value === "signUpRequierd") {
                     setFormData({
@@ -263,9 +237,7 @@ const CreateEventPage = () => {
                   label="Anmälan krävs och behöver godkännas"
                 />
               </RadioGroup>
-              <FormLabel id="demo-row-radio-buttons-group-label">
-                Pris
-              </FormLabel>
+              <FormLabel>Pris</FormLabel>
 
               <TextField
                 id="outlined-basic"
@@ -284,9 +256,7 @@ const CreateEventPage = () => {
                   }
                 }}
               />
-              <FormLabel id="demo-row-radio-buttons-group-label">
-                Max antal deltagare
-              </FormLabel>
+              <FormLabel>Max antal deltagare</FormLabel>
               <TextField
                 id="outlined-basic"
                 label="Max antal deltagare"
