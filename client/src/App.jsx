@@ -9,8 +9,8 @@ import Header from "./components/header/Header";
 function App() {
   return (
     <>
-    <Header/>
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/eventdetail/:Id" element={<EventDetailPage />} />
