@@ -1,10 +1,13 @@
-const express = require("express")
-const app = express()
+import { EventRouter } from "./routes/eventRouter.js";
+import Express from "express";
 
-app.get("/api", (req, res) => {
-    console.log("API-endpoint träffad");
-    res.json({"event": ["event ett", "event två"]});
+const app = Express();
+const port = 3000;
+
+app.use(Express.json());
+
+app.use("/events", EventRouter());
+
+app.listen(port, () => {
+  console.log("server startat på port " + port);
 });
-
-
-app.listen(5000, () => {console.log("server startat på port 5000")})
