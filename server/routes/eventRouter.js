@@ -13,55 +13,6 @@ export function EventRouter() {
       type: String,
       required: true,
     },
-  });
-
-  const eventModel = mongoose.model("Event", eventSchema);
-
-  router.get("/", async (req, res) => {
-    try {
-      await ConnectToDb();
-      const data = await eventModel.find({});
-      res.status(200).send(data);
-    } catch (error) {
-      console.log("error..");
-    }
-  });
-
-  router.post("/", async (req, res) => {
-    try {
-      await ConnectToDb();
-      const request = await eventModel.create(req.body);
-      request.save();
-      res.status(201).send(request);
-    } catch (error) {
-      res.status(404).send("Failed");
-      res.end();
-    }
-  });
-
-  router.get("/:id", async (req, res) => {
-    const data = await eventModel.findOne({ _id: req.params.id });
-    res.send(data);
-  });
-
-  router.patch("/:id", async (req, res) => {
-    const data = await eventModel.findOneAndUpdate(
-      { _id: req.params.id },
-      { ...req.body },
-      { new: true }
-    );
-    await data.save();
-    res.send(data);
-  });
-
-  router.delete("/:id", async (req, res) => {
-    await eventModel.deleteOne({ _id: req.params.id });
-    res.send("OK");
-  });
-  return router;
-}
-
-/* 
     date: {
       type: Date,
       required: true,
@@ -94,5 +45,66 @@ export function EventRouter() {
       type: Number,
       required: true,
     },
+  });
 
-*/
+  const eventModel = mongoose.model("Event", eventSchema);
+
+  router.get("/", async (req, res) => {
+    try {
+      await ConnectToDb();
+      const data = await eventModel.find({});
+      res.status(200).send(data);
+    } catch (error) {
+      res.status(404).send("No data found");
+      res.end();
+    }
+  });
+
+  router.post("/", async (req, res) => {
+    try {
+      await ConnectToDb();
+      const request = await eventModel.create(req.body);
+      request.save();
+      res.status(201).send(request);
+    } catch (error) {
+      res.status(404).send("Failed to create");
+      res.end();
+    }
+  });
+
+  router.get("/:id", async (req, res) => {
+    try {
+      const data = await eventModel.findOne({ _id: req.params.id });
+      res.status(200).send(data);
+    } catch (error) {
+      res.status(404).send("No data found");
+      res.end();
+    }
+  });
+
+  router.patch("/:id", async (req, res) => {
+    try {
+      const data = await eventModel.findOneAndUpdate(
+        { _id: req.params.id },
+        { ...req.body },
+        { new: true }
+      );
+      await data.save();
+      res.send(data);
+    } catch (error) {
+      res.status(404).send("Update failed");
+      res.end();
+    }
+  });
+
+  router.delete("/:id", async (req, res) => {
+    try {
+      await eventModel.deleteOne({ _id: req.params.id });
+      res.status(200).send("Deleted");
+    } catch (error) {
+      res.status(404).send("Failed to delete");
+      res.end();
+    }
+  });
+  return router;
+}
