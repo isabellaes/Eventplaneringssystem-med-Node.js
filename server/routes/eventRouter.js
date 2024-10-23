@@ -9,41 +9,38 @@ export function EventRouter() {
   const router = Express.Router();
 
   const eventSchema = new mongoose.Schema({
-    name: {
+    title: {
       type: String,
-      required: true,
+    },
+    organizerId: {
+      type: String,
     },
     date: {
       type: Date,
-      required: true,
     },
     location: {
       type: String,
-      required: true,
+    },
+    publicDescription: {
+      type: String,
+    },
+    privateDescription: {
+      type: String,
     },
     public: {
       type: Boolean,
-      required: true,
     },
     signUpRequierd: {
       type: Boolean,
-      required: true,
     },
     approvedSignUpRequierd: {
       type: Boolean,
-      required: true,
     },
-    free: {
-      type: Boolean,
-      required: true,
-    },
-    availiblePlaces: {
+    limitedNumberOfParticipents: {
       type: Number,
-      required: true,
     },
     price: {
       type: Number,
-      required: true,
     },
   });
 
