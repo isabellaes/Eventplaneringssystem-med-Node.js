@@ -49,7 +49,7 @@ export function EventRouter() {
   router.get("/", async (req, res) => {
     try {
       await ConnectToDb();
-      const data = await eventModel.find({});
+      const data = await eventModel.find({ public: true });
       res.status(200).send(data);
     } catch (error) {
       res.status(404).send("No data found");
