@@ -8,28 +8,11 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import style from "./createEventPage.module.scss";
 import { useState } from "react";
+import { CreateEvent } from "../../api";
 
 const CreateEventPage = () => {
-  const [formData, setFormData] = useState({
-    event: {
-      title: "",
-      date: "YY-MM-DD",
-      time: "00:00",
-      location: "",
-      despcription: "",
-      public: true,
-      signUpRequierd: false,
-      approvedSignUpRequierd: false,
-      free: true,
-      availiblePlaces: "",
-      price: "",
-    },
-    organisatör: {
-      name: "",
-      email: "",
-      phoneNumber: "",
-    },
-  });
+  const [formData, setFormData] = useState({});
+
   return (
     <Container
       sx={{ backgroundColor: "white", minHeight: "100vh", minWidth: "90vw" }}
@@ -37,24 +20,25 @@ const CreateEventPage = () => {
     >
       <h1>Skapa nytt event</h1>
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          console.log(formData);
+          const result = await CreateEvent(formData.event);
+          console.log(result);
         }}
       >
-        <div className={style.flexRow}>
+        <div className={style.flexColumnCenter}>
           <div>
             <h2>Organisatör</h2>
             <FormControl>
               <TextField
-                id="outlined-basic"
+                id="name"
                 label="Namn"
                 variant="outlined"
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    organisatör: {
-                      ...formData.organisatör,
+                    organizer: {
+                      ...formData.organizer,
                       name: e.currentTarget.value,
                     },
                   })
@@ -62,15 +46,15 @@ const CreateEventPage = () => {
               />
 
               <TextField
-                id="outlined-basic"
+                id="email"
                 label="Epost"
                 variant="outlined"
                 type="email"
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    organisatör: {
-                      ...formData.organisatör,
+                    organizer: {
+                      ...formData.organizer,
                       email: e.currentTarget.value,
                     },
                   })
@@ -78,15 +62,15 @@ const CreateEventPage = () => {
               />
 
               <TextField
-                id="outlined-basic"
+                id="phone"
                 label="Telefonnummer"
                 variant="outlined"
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    organisatör: {
-                      ...formData.organisatör,
-                      phoneNumber: e.currentTarget.value,
+                    organizer: {
+                      ...formData.organizer,
+                      phone: e.currentTarget.value,
                     },
                   })
                 }
@@ -96,11 +80,11 @@ const CreateEventPage = () => {
           <div>
             <h2>Event informaton</h2>
             <FormControl>
-              <FormLabel>Ladda upp Bild</FormLabel>
-              <TextField id="basic" type="file" />
+              {/*   <FormLabel>Ladda upp Bild</FormLabel>
+              <TextField id="basic" type="file" /> */}
 
               <TextField
-                id="outlined-basic"
+                id="title"
                 label="Titel"
                 variant="outlined"
                 onChange={(e) =>
@@ -115,7 +99,7 @@ const CreateEventPage = () => {
               />
 
               <TextField
-                id="outlined-basic"
+                id="location"
                 label="Plats"
                 variant="outlined"
                 onChange={(e) =>
@@ -129,23 +113,9 @@ const CreateEventPage = () => {
                 }
               />
 
-              <TextField
-                id="outlined-basic"
-                label="Tid"
-                variant="outlined"
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    event: {
-                      ...formData.event,
-                      time: e.currentTarget.value,
-                    },
-                  })
-                }
-              />
               <FormLabel>Datum</FormLabel>
               <TextField
-                id="outlined-basic"
+                id="date"
                 variant="outlined"
                 type="date"
                 onChange={(e) =>
@@ -158,9 +128,9 @@ const CreateEventPage = () => {
                   })
                 }
               />
-
+              <FormLabel>Beskrivning</FormLabel>
               <TextField
-                id="outlined-textarea"
+                id="publicDescription"
                 label="Beskrivning"
                 multiline
                 onChange={(e) =>
@@ -168,7 +138,23 @@ const CreateEventPage = () => {
                     ...formData,
                     event: {
                       ...formData.event,
-                      despcription: e.currentTarget.value,
+                      publicDescription: e.currentTarget.value,
+                    },
+                  })
+                }
+              />
+
+              <FormLabel>Information för anmälda deltagare</FormLabel>
+              <TextField
+                id="privateDescription"
+                label="Information"
+                multiline
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    event: {
+                      ...formData.event,
+                      privateDescription: e.currentTarget.value,
                     },
                   })
                 }
@@ -176,7 +162,6 @@ const CreateEventPage = () => {
 
               <FormLabel>Öppet/Privat</FormLabel>
               <RadioGroup
-                column
                 onChange={(e) => {
                   if (e.currentTarget.value === "private") {
                     setFormData({
@@ -184,6 +169,15 @@ const CreateEventPage = () => {
                       event: {
                         ...formData.event,
                         public: false,
+                      },
+                    });
+                  }
+                  if (e.currentTarget.value === "public") {
+                    setFormData({
+                      ...formData,
+                      event: {
+                        ...formData.event,
+                        public: true,
                       },
                     });
                   }
@@ -203,7 +197,6 @@ const CreateEventPage = () => {
 
               <FormLabel>Anmälan</FormLabel>
               <RadioGroup
-                column
                 onChange={(e) => {
                   if (e.currentTarget.value === "signUpRequierd") {
                     setFormData({
@@ -219,7 +212,6 @@ const CreateEventPage = () => {
                       ...formData,
                       event: {
                         ...formData.event,
-                        signUpRequierd: true,
                         approvedSignUpRequierd: true,
                       },
                     });
@@ -240,7 +232,7 @@ const CreateEventPage = () => {
               <FormLabel>Pris</FormLabel>
 
               <TextField
-                id="outlined-basic"
+                id="price"
                 label="Pris"
                 variant="outlined"
                 type="number"
@@ -250,7 +242,7 @@ const CreateEventPage = () => {
                       ...formData,
                       event: {
                         ...formData.event,
-                        price: e.target.value,
+                        price: Number(e.target.value),
                       },
                     });
                   }
@@ -258,7 +250,7 @@ const CreateEventPage = () => {
               />
               <FormLabel>Max antal deltagare</FormLabel>
               <TextField
-                id="outlined-basic"
+                id="limitedNumberOfParticipents"
                 label="Max antal deltagare"
                 variant="outlined"
                 type="number"
@@ -268,7 +260,7 @@ const CreateEventPage = () => {
                       ...formData,
                       event: {
                         ...formData.event,
-                        availiblePlaces: e.target.value,
+                        limitedNumberOfParticipents: Number(e.target.value),
                       },
                     });
                   }
@@ -276,11 +268,10 @@ const CreateEventPage = () => {
               />
             </FormControl>
           </div>
+          <Button variant="outlined" type="submit" sx={{ marginTop: "1em" }}>
+            Skapa Event
+          </Button>
         </div>
-
-        <Button variant="outlined" type="submit" sx={{ marginTop: "1em" }}>
-          Skapa Event
-        </Button>
       </form>
     </Container>
   );

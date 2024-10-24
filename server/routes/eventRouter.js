@@ -9,41 +9,38 @@ export function EventRouter() {
   const router = Express.Router();
 
   const eventSchema = new mongoose.Schema({
-    name: {
+    title: {
       type: String,
-      required: true,
+    },
+    organizerId: {
+      type: String,
     },
     date: {
       type: Date,
-      required: true,
     },
     location: {
       type: String,
-      required: true,
+    },
+    publicDescription: {
+      type: String,
+    },
+    privateDescription: {
+      type: String,
     },
     public: {
       type: Boolean,
-      required: true,
     },
     signUpRequierd: {
       type: Boolean,
-      required: true,
     },
     approvedSignUpRequierd: {
       type: Boolean,
-      required: true,
     },
-    free: {
-      type: Boolean,
-      required: true,
-    },
-    availiblePlaces: {
+    limitedNumberOfParticipents: {
       type: Number,
-      required: true,
     },
     price: {
       type: Number,
-      required: true,
     },
   });
 
@@ -52,7 +49,7 @@ export function EventRouter() {
   router.get("/", async (req, res) => {
     try {
       await ConnectToDb();
-      const data = await eventModel.find({});
+      const data = await eventModel.find({ public: true });
       res.status(200).send(data);
     } catch (error) {
       res.status(404).send("No data found");

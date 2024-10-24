@@ -24,6 +24,13 @@ form {
   flex-direction: row;
   justify-content: space-evenly;
 }
+
+.flexColumnCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 button {
   align-items: center;
 }
