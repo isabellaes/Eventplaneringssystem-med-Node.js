@@ -13,13 +13,13 @@ import { useSelector } from "react-redux";
 
 const CreateEventPage = () => {
   const [formData, setFormData] = useState({});
-  const [organiz, setOrganizer] = useState([]);
+  /*   const [organiz, setOrganizer] = useState([]);
   const organizer = useSelector((state) => state.organizer.organizers);
 
   useEffect(() => {
     console.log(organizer);
     setOrganizer(organizer);
-  }, [organizer]);
+  }, [organizer]); */
 
   return (
     <Container
@@ -31,13 +31,7 @@ const CreateEventPage = () => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          setFormData({
-            ...formData,
-            event: {
-              ...formData.event,
-              organizerId: organiz[0]._id,
-            },
-          });
+
           const result = await CreateEvent(formData.event);
           console.log(result);
         }}
@@ -137,8 +131,7 @@ const CreateEventPage = () => {
                         public: false,
                       },
                     });
-                  }
-                  if (e.currentTarget.value === "public") {
+                  } else {
                     setFormData({
                       ...formData,
                       event: {
