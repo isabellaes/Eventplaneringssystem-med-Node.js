@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import style from "./createEventPage.module.scss";
 import { useState } from "react";
-import { CreateEvent, CreateOrganizer, GetOrganizerByEmail } from "../../api";
+import { CreateEvent } from "../../api";
 
 const CreateEventPage = () => {
   const [formData, setFormData] = useState({});
@@ -138,7 +138,7 @@ const CreateEventPage = () => {
                     ...formData,
                     event: {
                       ...formData.event,
-                      publicDespcription: e.currentTarget.value,
+                      publicDescription: e.currentTarget.value,
                     },
                   })
                 }
@@ -154,7 +154,7 @@ const CreateEventPage = () => {
                     ...formData,
                     event: {
                       ...formData.event,
-                      privateDespcription: e.currentTarget.value,
+                      privateDescription: e.currentTarget.value,
                     },
                   })
                 }
