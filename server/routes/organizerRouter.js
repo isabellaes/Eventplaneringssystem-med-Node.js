@@ -14,14 +14,14 @@ export function OrganizerRouter() {
       required: true,
     },
     email: {
-        type: String,
-        required: true,
-        unique: true,
-      },
-      phone: {
-        type: String,
-        required: true,
-      },
+      type: String,
+      required: true,
+      unique: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
   });
 
   const organizerModel = mongoose.model("Organizer", organizerSchema);
@@ -49,8 +49,13 @@ export function OrganizerRouter() {
   });
 
   router.get("/:id", async (req, res) => {
-    const data = await organizerModel.findOne({ _id: req.params.id });
-    res.send(data);
+    try {
+      const data = await organizerModel.findOne({ _id: req.params.id });
+      res.status(200).send(data);
+    } catch (error) {
+      res.status(404).send("No data found");
+      res.end();
+    }
   });
 
   router.patch("/:id", async (req, res) => {

@@ -7,76 +7,42 @@ import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import style from "./createEventPage.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CreateEvent } from "../../api";
+import { useSelector } from "react-redux";
 
 const CreateEventPage = () => {
   const [formData, setFormData] = useState({});
+  const [organiz, setOrganizer] = useState([]);
+  const organizer = useSelector((state) => state.organizer.organizers);
+
+  useEffect(() => {
+    console.log(organizer);
+    setOrganizer(organizer);
+  }, [organizer]);
 
   return (
     <Container
       sx={{ backgroundColor: "white", minHeight: "100vh", minWidth: "90vw" }}
       className="create-event-page"
     >
+      <div></div>
       <h1>Skapa nytt event</h1>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
+          setFormData({
+            ...formData,
+            event: {
+              ...formData.event,
+              organizerId: organiz[0]._id,
+            },
+          });
           const result = await CreateEvent(formData.event);
           console.log(result);
         }}
       >
         <div className={style.flexColumnCenter}>
-          <div>
-            <h2>Organisatör</h2>
-            <FormControl>
-              <TextField
-                id="name"
-                label="Namn"
-                variant="outlined"
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    organizer: {
-                      ...formData.organizer,
-                      name: e.currentTarget.value,
-                    },
-                  })
-                }
-              />
-
-              <TextField
-                id="email"
-                label="Epost"
-                variant="outlined"
-                type="email"
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    organizer: {
-                      ...formData.organizer,
-                      email: e.currentTarget.value,
-                    },
-                  })
-                }
-              />
-
-              <TextField
-                id="phone"
-                label="Telefonnummer"
-                variant="outlined"
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    organizer: {
-                      ...formData.organizer,
-                      phone: e.currentTarget.value,
-                    },
-                  })
-                }
-              />
-            </FormControl>
-          </div>
           <div>
             <h2>Event informaton</h2>
             <FormControl>
