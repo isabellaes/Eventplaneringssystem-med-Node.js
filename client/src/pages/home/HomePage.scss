@@ -1,26 +1,33 @@
+.HomePage {
+  margin: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-.HomePage{
-    margin: 3rem;
+  .inputBox {
+    margin-bottom: 1rem;
+  }
+
+  .eventsContainer {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+  }
 
-    .inputBox{
-        margin-bottom: 1rem;
+  .eventsBox {
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    .eventCard {
+      margin: 1rem;
+      flex: 1 0 200px;
     }
-
-    .eventsBox{
-       padding: 1rem;
-       display: flex;
-       flex-wrap: wrap;
-       justify-content: center;
-       align-items: center;
-       gap: 2rem;
-
-       .eventCard{
-        flex: 0 0 calc(25% - 2rem); 
-        margin-bottom: 2rem; 
-       }
-    }
+  }
 }

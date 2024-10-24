@@ -15,8 +15,6 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-
-
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -35,12 +33,17 @@ const EventCard = ({ event }) => {
     setExpanded(!expanded);
   };
 
+  
+  if (!event) {
+    return <Typography variant="body2">Inga evenemang tillgängliga.</Typography>;
+  }
+
   return (
-    <Card sx={{ width: 275, height: 600}}>
+    <Card sx={{ width: 275, height: 600 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="organizer">
-            {event.organizer[0]}
+            {event.organizerId ? event.organizerId.charAt(0) : 'O'} {/* Här ska istället hämtas orgnisatörens namn */}
           </Avatar>
         }
         action={
@@ -49,32 +52,28 @@ const EventCard = ({ event }) => {
           </IconButton>
         }
         title={event.title}
-        subheader={`Arrangerad av: ${event.organizer}`}
+        subheader={`Arrangerad av: ${event.organizerId || 'Okänd'}`}
       />
       <CardMedia
         component="img"
         height="194"
-        image={`../src/Assets/${event.img}`}
+        image={`../src/Assets/${event.img || 'pumpkins.jpg'}`}
         alt={event.title}
       />
       <CardContent>
-        <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 'bold'}}>
-          {event.description}
+        <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 'bold' }}>
+          {event.publicDescription}
         </Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Plats: {event.place}
+          Plats: {event.location || 'Ingen plats angiven'}
         </Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Tid och datum: {event.time_and_date}
+          Tid och datum: {event.date ? new Date(event.date).toLocaleString() : 'Ingen tid angiven'}
         </Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {event.free_or_not_free === 'not free' 
-            ? `Kostnad: ${event.cost} SEK, Betald: ${event.payment_received ? 'Ja' : 'Nej'}` 
-            : 'Kostnad: Gratis'}
+          {event.price > 0 ? `Kostnad: ${event.price} SEK` : 'Kostnad: Gratis'}
         </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Max antal deltagare: {event.max_participants}
-        </Typography>
+        
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
@@ -95,7 +94,7 @@ const EventCard = ({ event }) => {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography variant="body2">
-            Anmälan krävs: {event.registration.required === 'true' ? 'Ja' : 'Nej'}
+            Anmälan krävs: {event.signUpRequierd ? 'Ja' : 'Nej'}
           </Typography>
         </CardContent>
       </Collapse>
