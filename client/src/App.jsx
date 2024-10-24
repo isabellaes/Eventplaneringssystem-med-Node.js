@@ -13,7 +13,7 @@ function App() {
         <Header />
         <Routes>
           <Route index element={<HomePage />} />
-          <Route path="/eventdetail/:Id" element={<EventDetailPage />} />
+          <Route path="/eventdetail/:id" element={<EventDetailPage />} />
           <Route path="/createevent" element={<CreateEventPage />} />
         </Routes>
       </BrowserRouter>

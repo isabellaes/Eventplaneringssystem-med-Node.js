@@ -14,6 +14,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Link } from 'react-router-dom';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -33,72 +34,74 @@ const EventCard = ({ event }) => {
     setExpanded(!expanded);
   };
 
-  
+
   if (!event) {
     return <Typography variant="body2">Inga evenemang tillgängliga.</Typography>;
   }
 
   return (
-    <Card sx={{ width: 275, height: 600 }}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="organizer">
-            {event.organizerId ? event.organizerId.charAt(0) : 'O'} {/* Här ska istället hämtas orgnisatörens namn */}
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={event.title}
-        subheader={`Arrangerad av: ${event.organizerId || 'Okänd'}`}
-      />
-      <CardMedia
-        component="img"
-        height="194"
-        image={`../src/Assets/${event.img || 'pumpkins.jpg'}`}
-        alt={event.title}
-      />
-      <CardContent>
-        <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 'bold' }}>
-          {event.publicDescription}
-        </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Plats: {event.location || 'Ingen plats angiven'}
-        </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Tid och datum: {event.date ? new Date(event.date).toLocaleString() : 'Ingen tid angiven'}
-        </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {event.price > 0 ? `Kostnad: ${event.price} SEK` : 'Kostnad: Gratis'}
-        </Typography>
-        
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+    <Link to={`/eventdetail/${event._id}`}>
+      <Card sx={{ width: 275, height: 600 }}>
+        <CardHeader
+          avatar={
+            <Avatar sx={{ bgcolor: red[500] }} aria-label="organizer">
+              {event.organizerId ? event.organizerId.charAt(0) : 'O'} {/* Här ska istället hämtas orgnisatörens namn */}
+            </Avatar>
+          }
+          action={
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title={event.title}
+          subheader={`Arrangerad av: ${event.organizerId || 'Okänd'}`}
+        />
+        <CardMedia
+          component="img"
+          height="194"
+          image={`../src/Assets/${event.img || 'pumpkins.jpg'}`}
+          alt={event.title}
+        />
         <CardContent>
-          <Typography variant="body2">
-            Anmälan krävs: {event.signUpRequierd ? 'Ja' : 'Nej'}
+          <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 'bold' }}>
+            {event.publicDescription}
           </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            Plats: {event.location || 'Ingen plats angiven'}
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            Tid och datum: {event.date ? new Date(event.date).toLocaleString() : 'Ingen tid angiven'}
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            {event.price > 0 ? `Kostnad: ${event.price} SEK` : 'Kostnad: Gratis'}
+          </Typography>
+
         </CardContent>
-      </Collapse>
-    </Card>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography variant="body2">
+              Anmälan krävs: {event.signUpRequierd ? 'Ja' : 'Nej'}
+            </Typography>
+          </CardContent>
+        </Collapse>
+      </Card>
+    </Link>
   );
 };
 

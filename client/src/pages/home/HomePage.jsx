@@ -39,7 +39,7 @@ const HomePage = () => {
           (<p>Det har inte skapats några event ännu</p>
           ) : (
             allEvents.map((event, index) => (
-            <EventCard className="eventCard" key={index} event={event} />
+            <EventCard className="eventCard" key={event._id} event={event} />
           )))  }
         </Box>
       </Container>

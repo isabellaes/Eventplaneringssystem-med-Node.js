@@ -70,11 +70,17 @@ export function EventRouter() {
   });
 
   router.get("/:id", async (req, res) => {
+    if(!mongoose.Types.ObjectId.isValid(req.params.id)){
+      return res.status(400).send("invalid event format")
+    }
     try {
-      const data = await eventModel.findOne({ _id: req.params.id });
-      res.status(200).send(data);
+      const event = await eventModel.findById(req.params.id);
+      if(!event){
+        return res.status(404).send("event not found")
+      }
+      res.status(200).send(event);
     } catch (error) {
-      res.status(404).send("No data found");
+      res.status(500).send("server error");
       res.end();
     }
   });

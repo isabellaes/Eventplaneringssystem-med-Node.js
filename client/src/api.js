@@ -54,3 +54,14 @@ export async function getEvents() {
     return [];
   }
 }
+
+export async function getEventById(eventId) {
+  const response = await fetch(`/events/${eventId}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  });
+  const result = await response.json();
+  return result;
+}
