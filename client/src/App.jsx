@@ -5,8 +5,20 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import EventDetailPage from "./pages/event-detail/EventDetailPage";
 import CreateEventPage from "./pages/create-event/CreateEventPage";
 import Header from "./components/header/Header";
+import { useDispatch } from "react-redux";
+import { fetchOrganizerById } from "./redux/organizerSlice";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    try {
+      dispatch(fetchOrganizerById("671946c62654740140e1a05a"));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch]);
+
   return (
     <>
       <BrowserRouter>
